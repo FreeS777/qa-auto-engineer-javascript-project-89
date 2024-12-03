@@ -1,27 +1,27 @@
 import userEvent from "@testing-library/user-event";
 import { expect } from "vitest";
+import { screen } from "@testing-library/react";
 
 export class AppPage {
-  constructor(screen) {
+  constructor() {
     this.user = userEvent.setup();
-    this.screen = screen;
-    this.emailInput = this.screen.getByLabelText("Email");
-    this.passwordInput = this.screen.getByLabelText("Пароль");
-    this.addressInput = this.screen.getByLabelText("Адрес");
-    this.cityInput = this.screen.getByLabelText("Город");
-    this.countryInput = this.screen.getByLabelText("Страна");
-    this.checkBox = this.screen.getByLabelText("Принять правила");
-    this.signUpBtn = this.screen.getByRole("button", {
+    this.emailInput = screen.getByLabelText("Email");
+    this.passwordInput = screen.getByLabelText("Пароль");
+    this.addressInput = screen.getByLabelText("Адрес");
+    this.cityInput = screen.getByLabelText("Город");
+    this.countryInput = screen.getByLabelText("Страна");
+    this.checkBox = screen.getByLabelText("Принять правила");
+    this.signUpBtn = screen.getByRole("button", {
       name: "Зарегистрироваться",
     });
   }
 
   get getBackBtn() {
-    return this.screen.getByRole("button", { name: "Назад" });
+    return screen.getByRole("button", { name: "Назад" });
   }
 
   get getRegistrationTable() {
-    return this.screen.getByRole("table");
+    return screen.getByRole("table");
   }
 
   async fillForm({ email, password, address, city, country, rulesCheckBox }) {
@@ -58,7 +58,7 @@ export class AppPage {
   }
 
   checkTableIsVisible() {
-    expect(this.screen.getByRole("table")).toBeVisible();
+    expect(screen.getByRole("table")).toBeVisible();
   }
 
   checkBackBtnIsVisible() {

@@ -4,14 +4,14 @@ import Widget from "@hexlet/chatbot-v2";
 import { validSteps } from "../__fixtures__/steps";
 import { emptyMessages } from "../__fixtures__/emptyMessages";
 import { emptyButtons } from "../__fixtures__/emptyButtons";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 
 describe("Chat Bot tests", () => {
   let chatBotPage;
   describe("positive tests", () => {
     beforeEach(() => {
       render(Widget(validSteps));
-      chatBotPage = new ChatBotPage(screen);
+      chatBotPage = new ChatBotPage();
       window.HTMLElement.prototype.scrollIntoView = vi.fn();
     });
 
@@ -62,7 +62,7 @@ describe("Chat Bot tests", () => {
 
   describe("negative tests", () => {
     beforeEach(() => {
-      chatBotPage = new ChatBotPage(screen);
+      chatBotPage = new ChatBotPage();
       window.HTMLElement.prototype.scrollIntoView = vi.fn();
     });
     test("shows error with invalid steps", async () => {

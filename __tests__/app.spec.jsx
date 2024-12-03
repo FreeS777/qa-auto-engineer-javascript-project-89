@@ -1,4 +1,4 @@
-import { render, waitFor, screen } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { describe, test, vi, beforeEach } from "vitest";
 import App from "../src/App.jsx";
 import { ChatBotPage } from "./pages/chatBotPage";
@@ -10,8 +10,8 @@ describe("App tests", () => {
   let appPage;
   beforeEach(() => {
     render(<App />);
-    chatBotPage = new ChatBotPage(screen);
-    appPage = new AppPage(screen);
+    chatBotPage = new ChatBotPage();
+    appPage = new AppPage();
     window.HTMLElement.prototype.scrollIntoView = vi.fn();
   });
 

@@ -1,13 +1,12 @@
 import userEvent from "@testing-library/user-event";
-import { waitFor, screen } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import { expect } from "vitest";
 import { validSteps } from "../../__fixtures__/steps";
 
 export class ChatBotPage {
-  constructor(screen) {
+  constructor() {
     this.user = userEvent.setup();
     this.steps = validSteps;
-    this.screen = screen;
   }
 
   get openChatBtn() {
@@ -109,7 +108,7 @@ export class ChatBotPage {
 
   async checkEmptyStepsBlockRendered() {
     const message = screen.queryByText(/Привет!.*/i);
-    const button = this.screen.queryByRole("button", {
+    const button = screen.queryByRole("button", {
       name: "Начать разговор",
     });
     expect(message).not.toBeInTheDocument();
@@ -118,7 +117,7 @@ export class ChatBotPage {
 
   async checkEmptyMessagesBlockRendered() {
     const message = screen.queryByText(/Привет!.*/i);
-    const button = this.screen.queryByRole("button", {
+    const button = screen.queryByRole("button", {
       name: "Начать разговор",
     });
     expect(message).not.toBeInTheDocument();
@@ -127,7 +126,7 @@ export class ChatBotPage {
 
   async checkEmptyButtonsBlockRendered() {
     const message = screen.queryByText(/Привет!.*/i);
-    const button = this.screen.queryByRole("button", {
+    const button = screen.queryByRole("button", {
       name: "Начать разговор",
     });
     expect(message).toBeVisible();
