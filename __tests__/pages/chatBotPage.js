@@ -1,8 +1,8 @@
-import userEvent from "@testing-library/user-event";
-import { screen, waitFor } from "@testing-library/react";
-import { expect } from "vitest";
-import { validSteps } from "../../__fixtures__/steps";
-import "@testing-library/jest-dom";
+import userEvent from '@testing-library/user-event';
+import { screen, waitFor } from '@testing-library/react';
+import { expect } from 'vitest';
+import { validSteps } from '../../__fixtures__/steps';
+import '@testing-library/jest-dom';
 
 export class ChatBotPage {
   constructor() {
@@ -11,29 +11,29 @@ export class ChatBotPage {
   }
 
   get openChatBtn() {
-    return screen.getByRole("button", { name: "Открыть Чат" });
+    return screen.getByRole('button', { name: 'Открыть Чат' });
   }
   get conversationStartBtn() {
-    return screen.getByRole("button", { name: "Начать разговор" });
+    return screen.getByRole('button', { name: 'Начать разговор' });
   }
   get changeProfessionBtn() {
-    return screen.getByRole("button", {
-      name: "Сменить профессию или трудоустроиться",
+    return screen.getByRole('button', {
+      name: 'Сменить профессию или трудоустроиться',
     });
   }
   get tellMoreBtn() {
-    return screen.getByRole("button", { name: "Расскажи подробнее" });
+    return screen.getByRole('button', { name: 'Расскажи подробнее' });
   }
 
   get signToCourseBtn() {
-    return screen.getByRole("button", {
-      name: "Останусь здесь, запишусь на курс",
+    return screen.getByRole('button', {
+      name: 'Останусь здесь, запишусь на курс',
     });
   }
 
   get closeBtn() {
-    return screen.getByRole("button", {
-      name: "Close",
+    return screen.getByRole('button', {
+      name: 'Close',
     });
   }
 
@@ -64,10 +64,10 @@ export class ChatBotPage {
   async checkStartBlockRendered() {
     const button = this.changeProfessionBtn;
     expect(button).toBeVisible();
-    expect(screen.getByRole("button", { name: "Попробовать себя в IT" }));
+    expect(screen.getByRole('button', { name: 'Попробовать себя в IT' }));
     expect(
-      screen.getByRole("button", {
-        name: "Я разработчик, хочу углубить свои знания",
+      screen.getByRole('button', {
+        name: 'Я разработчик, хочу углубить свои знания',
       })
     );
     expect(screen.getByText(/помогу вам выбрать.*/i)).toBeVisible();
@@ -76,10 +76,10 @@ export class ChatBotPage {
   async checkSwitchBlockRendered() {
     const button = this.tellMoreBtn;
     expect(button).toBeVisible();
-    expect(screen.getByRole("button", { name: "А есть что-нибудь попроще" }));
+    expect(screen.getByRole('button', { name: 'А есть что-нибудь попроще' }));
     expect(
-      screen.getByRole("button", {
-        name: "Вернуться в начало",
+      screen.getByRole('button', {
+        name: 'Вернуться в начало',
       })
     );
     expect(screen.getByText(/у нас есть программы.*/i)).toBeVisible();
@@ -89,8 +89,8 @@ export class ChatBotPage {
     const button = this.signToCourseBtn;
     expect(button).toBeVisible();
     expect(
-      screen.getByRole("button", {
-        name: "Вернуться в начало",
+      screen.getByRole('button', {
+        name: 'Вернуться в начало',
       })
     );
     expect(screen.getByText(/в Хекслете можно.*/i)).toBeVisible();
@@ -100,8 +100,8 @@ export class ChatBotPage {
     const button = this.signToCourseBtn;
     expect(button).toBeVisible();
     expect(
-      screen.getByRole("button", {
-        name: "Верни меня в начало",
+      screen.getByRole('button', {
+        name: 'Верни меня в начало',
       })
     );
     expect(screen.getByText(/ага, дублирую ссылку.*/i)).toBeVisible();
@@ -109,8 +109,8 @@ export class ChatBotPage {
 
   async checkEmptyStepsBlockRendered() {
     const message = screen.queryByText(/Привет!.*/i);
-    const button = screen.queryByRole("button", {
-      name: "Начать разговор",
+    const button = screen.queryByRole('button', {
+      name: 'Начать разговор',
     });
     expect(message).not.toBeInTheDocument();
     expect(button).not.toBeInTheDocument();
@@ -118,8 +118,8 @@ export class ChatBotPage {
 
   async checkEmptyMessagesBlockRendered() {
     const message = screen.queryByText(/Привет!.*/i);
-    const button = screen.queryByRole("button", {
-      name: "Начать разговор",
+    const button = screen.queryByRole('button', {
+      name: 'Начать разговор',
     });
     expect(message).not.toBeInTheDocument();
     expect(button).toBeVisible();
@@ -127,8 +127,8 @@ export class ChatBotPage {
 
   async checkEmptyButtonsBlockRendered() {
     const message = screen.queryByText(/Привет!.*/i);
-    const button = screen.queryByRole("button", {
-      name: "Начать разговор",
+    const button = screen.queryByRole('button', {
+      name: 'Начать разговор',
     });
     expect(message).toBeVisible();
     expect(button).not.toBeInTheDocument();
