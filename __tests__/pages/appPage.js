@@ -1,6 +1,7 @@
 import userEvent from "@testing-library/user-event";
 import { expect } from "vitest";
 import { screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
 
 export class AppPage {
   constructor() {
