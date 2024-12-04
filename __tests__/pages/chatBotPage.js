@@ -10,34 +10,6 @@ class ChatBotPage {
     this.steps = validSteps;
   }
 
-  openChatBtn() {
-    return screen.getByRole('button', { name: 'Открыть Чат' });
-  }
-
-  conversationStartBtn() {
-    return screen.getByRole('button', { name: 'Начать разговор' });
-  }
-
-  changeProfessionBtn() {
-    return screen.getByRole('button', {
-      name: 'Сменить профессию или трудоустроиться',
-    });
-  }
-
-  tellMoreBtn() {
-    return screen.getByRole('button', { name: 'Расскажи подробнее' });
-  }
-
-  signToCourseBtn() {
-    return screen.getByRole('button', {
-      name: 'Останусь здесь, запишусь на курс',
-    });
-  }
-
-  closeBtn() {
-    return screen.getByRole('button', { name: 'Close' });
-  }
-
   async clickNextStep(step) {
     await waitFor(async () => {
       await this.user.click(screen.getByText(step));
@@ -46,26 +18,28 @@ class ChatBotPage {
 
   async openChat() {
     await waitFor(async () => {
-      await this.user.click(this.openChatBtn());
+      await this.user.click(screen.getByRole('button', { name: 'Открыть Чат' }));
     });
   }
 
   async closeChat() {
     await waitFor(async () => {
-      await this.user.click(this.closeBtn());
+      await this.user.click(screen.getByRole('button', { name: 'Close' }));
     });
   }
 
   async checkChatBotRender() {
-    expect(this.openChatBtn()).toBeVisible();
+    expect(screen.getByRole('button', { name: 'Открыть Чат' })).toBeVisible();
   }
 
   async checkConversationStartBtnVisible() {
-    expect(this.conversationStartBtn()).toBeVisible();
+    expect(screen.getByRole('button', { name: 'Начать разговор' })).toBeVisible();
   }
 
   async checkStartBlockRendered() {
-    const button = this.changeProfessionBtn();
+    const button = screen.getByRole('button', {
+      name: 'Сменить профессию или трудоустроиться',
+    });
     expect(button).toBeVisible();
     expect(screen.getByRole('button', { name: 'Попробовать себя в IT' }));
     expect(
@@ -77,7 +51,7 @@ class ChatBotPage {
   }
 
   async checkSwitchBlockRendered() {
-    const button = this.tellMoreBtn();
+    const button = screen.getByRole('button', { name: 'Расскажи подробнее' });
     expect(button).toBeVisible();
     expect(screen.getByRole('button', { name: 'А есть что-нибудь попроще' }));
     expect(
@@ -89,7 +63,9 @@ class ChatBotPage {
   }
 
   async checkDetailsBlockRendered() {
-    const button = this.signToCourseBtn();
+    const button = screen.getByRole('button', {
+      name: 'Останусь здесь, запишусь на курс',
+    });
     expect(button).toBeVisible();
     expect(
       screen.getByRole('button', {
@@ -100,7 +76,9 @@ class ChatBotPage {
   }
 
   async checkSubscribeBlockRendered() {
-    const button = this.signToCourseBtn();
+    const button = screen.getByRole('button', {
+      name: 'Останусь здесь, запишусь на курс',
+    });
     expect(button).toBeVisible();
     expect(
       screen.getByRole('button', {
