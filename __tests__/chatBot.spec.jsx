@@ -1,5 +1,5 @@
 import { beforeEach, describe, test, vi, expect } from 'vitest';
-import { ChatBotPage } from './pages/chatBotPage';
+import ChatBotPage from './pages/chatBotPage';
 import Widget from '@hexlet/chatbot-v2';
 import { validSteps } from '../__fixtures__/steps';
 import { emptyMessages } from '../__fixtures__/emptyMessages';

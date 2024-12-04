@@ -1,8 +1,8 @@
 import { render, waitFor } from '@testing-library/react';
 import { describe, test, vi, beforeEach } from 'vitest';
 import App from '../src/App.jsx';
-import { ChatBotPage } from './pages/chatBotPage';
-import { AppPage } from './pages/appPage';
+import ChatBotPage from './pages/chatBotPage';
+import AppPage from './pages/appPage';
 import data from '../__fixtures__/regData.js';
 
 describe('App tests', () => {

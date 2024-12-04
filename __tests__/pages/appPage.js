@@ -3,7 +3,7 @@ import { expect } from 'vitest';
 import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-export class AppPage {
+class AppPage {
   constructor() {
     this.user = userEvent.setup();
     this.emailInput = screen.getByLabelText('Email');
@@ -95,3 +95,5 @@ export class AppPage {
     });
   }
 }
+
+export default AppPage;

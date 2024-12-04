@@ -4,7 +4,7 @@ import { expect } from 'vitest';
 import { validSteps } from '../../__fixtures__/steps';
 import '@testing-library/jest-dom';
 
-export class ChatBotPage {
+class ChatBotPage {
   constructor() {
     this.user = userEvent.setup();
     this.steps = validSteps;
@@ -13,14 +13,17 @@ export class ChatBotPage {
   get openChatBtn() {
     return screen.getByRole('button', { name: 'Открыть Чат' });
   }
+
   get conversationStartBtn() {
     return screen.getByRole('button', { name: 'Начать разговор' });
   }
+
   get changeProfessionBtn() {
     return screen.getByRole('button', {
       name: 'Сменить профессию или трудоустроиться',
     });
   }
+
   get tellMoreBtn() {
     return screen.getByRole('button', { name: 'Расскажи подробнее' });
   }
@@ -42,6 +45,7 @@ export class ChatBotPage {
       await this.user.click(screen.getByText(step));
     });
   }
+
   async openChat() {
     await waitFor(async () => {
       await this.user.click(this.openChatBtn);
@@ -53,6 +57,7 @@ export class ChatBotPage {
       await this.user.click(this.closeBtn);
     });
   }
+
   async checkChatBotRender() {
     expect(this.openChatBtn).toBeVisible();
   }
@@ -68,7 +73,7 @@ export class ChatBotPage {
     expect(
       screen.getByRole('button', {
         name: 'Я разработчик, хочу углубить свои знания',
-      })
+      }),
     );
     expect(screen.getByText(/помогу вам выбрать.*/i)).toBeVisible();
   }
@@ -80,7 +85,7 @@ export class ChatBotPage {
     expect(
       screen.getByRole('button', {
         name: 'Вернуться в начало',
-      })
+      }),
     );
     expect(screen.getByText(/у нас есть программы.*/i)).toBeVisible();
   }
@@ -91,7 +96,7 @@ export class ChatBotPage {
     expect(
       screen.getByRole('button', {
         name: 'Вернуться в начало',
-      })
+      }),
     );
     expect(screen.getByText(/в Хекслете можно.*/i)).toBeVisible();
   }
@@ -134,3 +139,5 @@ export class ChatBotPage {
     expect(button).not.toBeInTheDocument();
   }
 }
+
+export default ChatBotPage;
