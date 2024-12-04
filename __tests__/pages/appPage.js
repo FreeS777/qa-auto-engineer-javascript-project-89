@@ -6,51 +6,91 @@ import '@testing-library/jest-dom';
 class AppPage {
   constructor() {
     this.user = userEvent.setup();
-    this.emailInput = screen.getByLabelText('Email');
-    this.passwordInput = screen.getByLabelText('Пароль');
-    this.addressInput = screen.getByLabelText('Адрес');
-    this.cityInput = screen.getByLabelText('Город');
-    this.countryInput = screen.getByLabelText('Страна');
-    this.checkBox = screen.getByLabelText('Принять правила');
-    this.signUpBtn = screen.getByRole('button', {
-      name: 'Зарегистрироваться',
-    });
   }
 
-  get getBackBtn() {
-    return screen.getByRole('button', { name: 'Назад' });
+  async emailInput() {
+    return screen.findByLabelText('Email');
   }
 
-  get getRegistrationTable() {
-    return screen.getByRole('table');
+  async passwordInput() {
+    return screen.findByLabelText('Пароль');
   }
 
-  async fillForm({ email, password, address, city, country, rulesCheckBox }) {
-    await this.user.type(this.emailInput, email);
-    await this.user.type(this.passwordInput, password);
-    await this.user.type(this.addressInput, address);
-    await this.user.type(this.cityInput, city);
-    await this.user.selectOptions(this.countryInput, country);
+  async addressInput() {
+    return screen.findByLabelText('Адрес');
+  }
+
+  async cityInput() {
+    return screen.findByLabelText('Город');
+  }
+
+  async countryInput() {
+    return screen.findByLabelText('Страна');
+  }
+
+  async checkBox() {
+    return screen.findByLabelText('Принять правила');
+  }
+
+  async signUpBtn() {
+    return screen.findByRole('button', { name: 'Зарегистрироваться' });
+  }
+
+  async getBackBtn() {
+    return screen.findByRole('button', { name: 'Назад' });
+  }
+
+  async getRegistrationTable() {
+    return screen.findByRole('table');
+  }
+
+  async fillForm({
+    email,
+    password,
+    address,
+    city,
+    country,
+    rulesCheckBox
+  }) {
+    const emailInput = await this.emailInput();
+    const passwordInput = await this.passwordInput();
+    const addressInput = await this.addressInput();
+    const cityInput = await this.cityInput();
+    const countryInput = await this.countryInput();
+    const checkBox = await this.checkBox();
+
+    await this.user.type(emailInput, email);
+    await this.user.type(passwordInput, password);
+    await this.user.type(addressInput, address);
+    await this.user.type(cityInput, city);
+    await this.user.selectOptions(countryInput, country);
     if (rulesCheckBox === true) {
-      await this.user.click(this.checkBox);
+      await this.user.click(checkBox);
     }
   }
-  checkAppRender() {
-    expect(this.emailInput).toHaveAttribute('placeholder', 'Email');
-    expect(this.passwordInput).toHaveAttribute('placeholder', 'Пароль');
-    expect(this.addressInput).toHaveAttribute(
-      'placeholder',
-      'Невский проспект, 12'
-    );
-    expect(this.cityInput).not.toHaveAttribute('placeholder');
-    expect(this.countryInput).toHaveValue('');
-    expect(this.checkBox).not.toBeChecked();
-    expect(this.signUpBtn).toBeVisible();
-    expect(this.signUpBtn).toBeEnabled();
+
+  async checkAppRender() {
+    const emailInput = await this.emailInput();
+    const passwordInput = await this.passwordInput();
+    const addressInput = await this.addressInput();
+    const cityInput = await this.cityInput();
+    const countryInput = await this.countryInput();
+    const checkBox = await this.checkBox();
+    const signUpBtn = await this.signUpBtn();
+
+    expect(emailInput).toHaveAttribute('placeholder', 'Email');
+    expect(passwordInput).toHaveAttribute('placeholder', 'Пароль');
+    expect(addressInput).toHaveAttribute('placeholder', 'Невский проспект, 12');
+    expect(cityInput).not.toHaveAttribute('placeholder');
+    expect(countryInput).toHaveValue('');
+    expect(checkBox).not.toBeChecked();
+    expect(signUpBtn).toBeVisible();
+    expect(signUpBtn).toBeEnabled();
   }
 
   async submitForm() {
-    await this.user.click(this.signUpBtn);
+    const signUpBtn = await this.signUpBtn();
+    await this.user.click(signUpBtn);
   }
 
   async registerUser(data) {
@@ -58,13 +98,15 @@ class AppPage {
     await this.submitForm();
   }
 
-  checkTableIsVisible() {
-    expect(screen.getByRole('table')).toBeVisible();
+  async checkTableIsVisible() {
+    const table = await this.getRegistrationTable();
+    expect(table).toBeVisible();
   }
 
-  checkBackBtnIsVisible() {
-    expect(this.getBackBtn).toBeVisible();
-    expect(this.getBackBtn).toBeEnabled();
+  async checkBackBtnIsVisible() {
+    const backBtn = await this.getBackBtn();
+    expect(backBtn).toBeVisible();
+    expect(backBtn).toBeEnabled();
   }
 
   convertKeyToLabel(key) {
@@ -78,8 +120,9 @@ class AppPage {
     };
     return labels[key];
   }
-  checkTablecontent(data) {
-    const table = this.getRegistrationTable;
+
+  async checkTablecontent(data) {
+    const table = await this.getRegistrationTable();
     const rows = table.querySelectorAll('tr');
 
     const expectedData = Object.entries(data).map(([key, value]) => {
