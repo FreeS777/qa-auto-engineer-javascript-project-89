@@ -43,20 +43,14 @@ class AppPage {
   }
 
   async checkAppRender() {
-    const emailInput = this.emailInput;
-    const passwordInput = this.passwordInput;
-    const addressInput = this.addressInput;
-    const cityInput = this.cityInput;
-    const countryInput = this.countryInput;
-    const checkBox = this.checkBox;
     const signUpBtn = await this.getBtn(this.buttons.signUpBtn);
 
-    expect(emailInput).toHaveAttribute('placeholder', 'Email');
-    expect(passwordInput).toHaveAttribute('placeholder', 'Пароль');
-    expect(addressInput).toHaveAttribute('placeholder', 'Невский проспект, 12');
-    expect(cityInput).not.toHaveAttribute('placeholder');
-    expect(countryInput).toHaveValue('');
-    expect(checkBox).not.toBeChecked();
+    expect(this.emailInput).toHaveAttribute('placeholder', 'Email');
+    expect(this.passwordInput).toHaveAttribute('placeholder', 'Пароль');
+    expect(this.addressInput).toHaveAttribute('placeholder', 'Невский проспект, 12');
+    expect(this.cityInput).not.toHaveAttribute('placeholder');
+    expect(this.countryInput).toHaveValue('');
+    expect(this.checkBox).not.toBeChecked();
     expect(signUpBtn).toBeVisible();
     expect(signUpBtn).toBeEnabled();
   }
