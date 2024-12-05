@@ -8,6 +8,23 @@ class ChatBotPage {
   constructor() {
     this.user = userEvent.setup();
     this.steps = validSteps;
+    this.buttons = {
+      openChatBtn: { name: this.steps[0].buttons[1].text },
+      closeBtn: { name: 'Close' },
+      conversationStartBtn: { name: this.steps[0].buttons[0].text },
+      changeProfessionBtn: { name: this.steps[1].buttons[0].text },
+      tryInITBtn: { name: this.steps[1].buttons[1].text },
+      advancedInITBtn: { name: this.steps[1].buttons[2].text },
+      tellMoreBtn: { name: this.steps[2].buttons[0].text },
+      simplerBtn: { name: this.steps[2].buttons[1].text },
+      backBtn: { name: this.steps[2].buttons[2].text },      
+      tryAgainBtn: { name: this.steps[5].buttons[1].text },
+      signToCourseBtn: { name: this.steps[4].buttons[0].text },
+    };
+  }
+
+  async getBtn(selector) {
+    return screen.getByRole('button', selector);
   }
 
   async clickNextStep(step) {
@@ -18,98 +35,77 @@ class ChatBotPage {
 
   async openChat() {
     await waitFor(async () => {
-      await this.user.click(screen.getByRole('button', { name: 'Открыть Чат' }));
+      const button = await this.getBtn(this.buttons.openChatBtn);
+      await this.user.click(button);
     });
   }
 
   async closeChat() {
     await waitFor(async () => {
-      await this.user.click(screen.getByRole('button', { name: 'Close' }));
+      const button = await this.getBtn(this.buttons.closeBtn);
+      await this.user.click(button);
     });
   }
 
   async checkChatBotRender() {
-    expect(screen.getByRole('button', { name: 'Открыть Чат' })).toBeVisible();
+    const button = await this.getBtn(this.buttons.openChatBtn);
+    expect(button).toBeVisible();
   }
 
   async checkConversationStartBtnVisible() {
-    expect(screen.getByRole('button', { name: 'Начать разговор' })).toBeVisible();
+    const button = await this.getBtn(this.buttons.conversationStartBtn);
+    expect(button).toBeVisible();
   }
 
   async checkStartBlockRendered() {
-    const button = screen.getByRole('button', {
-      name: 'Сменить профессию или трудоустроиться',
-    });
-    expect(button).toBeVisible();
-    expect(screen.getByRole('button', { name: 'Попробовать себя в IT' }));
-    expect(
-      screen.getByRole('button', {
-        name: 'Я разработчик, хочу углубить свои знания',
-      }),
-    );
-    expect(screen.getByText(/помогу вам выбрать.*/i)).toBeVisible();
+    expect(await this.getBtn(this.buttons.changeProfessionBtn)).toBeVisible();
+    expect(await this.getBtn(this.buttons.tryInITBtn)).toBeVisible();
+    expect(await this.getBtn(this.buttons.advancedInITBtn)).toBeVisible();
+    expect(screen.getByText(this.steps[1].messages[0])).toBeVisible();
   }
 
   async checkSwitchBlockRendered() {
-    const button = screen.getByRole('button', { name: 'Расскажи подробнее' });
-    expect(button).toBeVisible();
-    expect(screen.getByRole('button', { name: 'А есть что-нибудь попроще' }));
-    expect(
-      screen.getByRole('button', {
-        name: 'Вернуться в начало',
-      }),
-    );
-    expect(screen.getByText(/у нас есть программы.*/i)).toBeVisible();
+    expect(await this.getBtn(this.buttons.tellMoreBtn)).toBeVisible();
+    expect(await this.getBtn(this.buttons.simplerBtn)).toBeVisible();
+    expect(await this.getBtn(this.buttons.backBtn)).toBeVisible();
+    expect(screen.getByText(this.steps[2].messages[0])).toBeVisible();
   }
 
   async checkDetailsBlockRendered() {
-    const button = screen.getByRole('button', {
-      name: 'Останусь здесь, запишусь на курс',
-    });
-    expect(button).toBeVisible();
-    expect(
-      screen.getByRole('button', {
-        name: 'Вернуться в начало',
-      }),
-    );
-    expect(screen.getByText(/в Хекслете можно.*/i)).toBeVisible();
+    expect(await this.getBtn(this.buttons.signToCourseBtn)).toBeVisible();
+    expect(await this.getBtn(this.buttons.backBtn)).toBeVisible();
+    expect(screen.getByText(this.steps[4].messages[0])).toBeVisible();
   }
 
   async checkSubscribeBlockRendered() {
-    const button = screen.getByRole('button', {
-      name: 'Останусь здесь, запишусь на курс',
-    });
-    expect(button).toBeVisible();
-    expect(
-      screen.getByRole('button', {
-        name: 'Верни меня в начало',
-      })
-    );
-    expect(screen.getByText(/ага, дублирую ссылку.*/i)).toBeVisible();
+    const button = this.signToCourseBtn;
+    expect(await this.getBtn(this.buttons.signToCourseBtn)).toBeVisible();
+    expect(await this.getBtn(this.buttons.tryAgainBtn)).toBeVisible();
+    expect(screen.getByText(this.steps[6].messages[0])).toBeVisible();
   }
 
   async checkEmptyStepsBlockRendered() {
-    const message = screen.queryByText(/Привет!.*/i);
+    const message = screen.queryByText(this.steps[0].messages[0]);
     const button = screen.queryByRole('button', {
-      name: 'Начать разговор',
+      name: this.steps[0].buttons[0].text,
     });
     expect(message).not.toBeInTheDocument();
     expect(button).not.toBeInTheDocument();
   }
 
   async checkEmptyMessagesBlockRendered() {
-    const message = screen.queryByText(/Привет!.*/i);
+    const message = screen.queryByText(this.steps[0].messages[0]);
     const button = screen.queryByRole('button', {
-      name: 'Начать разговор',
+      name: this.steps[0].buttons[0].text,
     });
     expect(message).not.toBeInTheDocument();
     expect(button).toBeVisible();
   }
 
   async checkEmptyButtonsBlockRendered() {
-    const message = screen.queryByText(/Привет!.*/i);
+    const message = screen.queryByText(this.steps[0].messages[0]);
     const button = screen.queryByRole('button', {
-      name: 'Начать разговор',
+      name: this.steps[0].buttons[0].text,
     });
     expect(message).toBeVisible();
     expect(button).not.toBeInTheDocument();
