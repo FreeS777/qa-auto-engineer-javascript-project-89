@@ -19,7 +19,7 @@ class ChatBotPage {
       advancedInITBtn: { name: this.steps[1].buttons[2].text },
       tellMoreBtn: { name: this.steps[2].buttons[0].text },
       simplerBtn: { name: this.steps[2].buttons[1].text },
-      backBtn: { name: this.steps[2].buttons[2].text },      
+      backBtn: { name: this.steps[2].buttons[2].text },
       tryAgainBtn: { name: this.steps[5].buttons[1].text },
       signToCourseBtn: { name: this.steps[4].buttons[0].text },
     };
@@ -76,7 +76,6 @@ class ChatBotPage {
   }
 
   async checkSubscribeBlockRendered() {
-    const button = this.signToCourseBtn;
     expect(await this.getBtn(this.buttons.signToCourseBtn)).toBeVisible();
     expect(await this.getBtn(this.buttons.tryAgainBtn)).toBeVisible();
     expect(screen.getByText(this.steps[6].messages[0])).toBeVisible();

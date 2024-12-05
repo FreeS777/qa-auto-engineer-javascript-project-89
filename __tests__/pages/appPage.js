@@ -4,12 +4,14 @@ import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import getBtn from './utils/getBtn';
 import getRegistrationTable from './utils/getRegTable';
+import convertKeyToLabel from './utils/keyToLabel';
 
 class AppPage {
   constructor() {
     this.user = userEvent.setup();
     this.getBtn = getBtn;
     this.getRegistrationTable = getRegistrationTable;
+    this.convertKeyToLabel = convertKeyToLabel;
     this.emailInput = screen.getByLabelText('Email');
     this.passwordInput = screen.getByLabelText('Пароль');
     this.addressInput = screen.getByLabelText('Адрес');
@@ -19,7 +21,7 @@ class AppPage {
     this.buttons = {
       signUpBtn: { name: 'Зарегистрироваться' },
       backBtn: { name: 'Назад' },
-    }
+    };
   }
 
   async fillForm({
@@ -28,22 +30,15 @@ class AppPage {
     address,
     city,
     country,
-    rulesCheckBox
+    rulesCheckBox,
   }) {
-    const emailInput = this.emailInput;
-    const passwordInput = this.passwordInput;
-    const addressInput = this.addressInput;
-    const cityInput = this.cityInput;
-    const countryInput = this.countryInput;
-    const checkBox = this.checkBox;
-
-    await this.user.type(emailInput, email);
-    await this.user.type(passwordInput, password);
-    await this.user.type(addressInput, address);
-    await this.user.type(cityInput, city);
-    await this.user.selectOptions(countryInput, country);
+    await this.user.type(this.emailInput, email);
+    await this.user.type(this.passwordInput, password);
+    await this.user.type(this.addressInput, address);
+    await this.user.type(this.cityInput, city);
+    await this.user.selectOptions(this.countryInput, country);
     if (rulesCheckBox === true) {
-      await this.user.click(checkBox);
+      await this.user.click(this.checkBox);
     }
   }
 
@@ -87,36 +82,20 @@ class AppPage {
     expect(backBtn).toBeEnabled();
   }
 
-  convertKeyToLabel(key) {
-    const labels = {
-      email: 'Email',
-      password: 'Пароль',
-      address: 'Адрес',
-      city: 'Город',
-      country: 'Страна',
-      rulesCheckBox: 'Принять правила',
-    };
-    return labels[key];
-  }
-
   async checkTablecontent(data) {
     const table = await this.getRegistrationTable();
     const rows = table.querySelectorAll('tr');
-  
     const expectedData = Object.entries(data).map(([key, value]) => [
       this.convertKeyToLabel(key),
-      value.toString()
+      value.toString(),
     ]);
-  
     expect(rows).toHaveLength(expectedData.length);
-  
     expectedData.forEach((item, index) => {
       const row = rows[index];
       expect(row.cells[0]).toHaveTextContent(item[0]);
       expect(row.cells[1]).toHaveTextContent(item[1]);
     });
   }
-  
 }
 
 export default AppPage;
