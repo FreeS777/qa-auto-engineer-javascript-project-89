@@ -3,11 +3,13 @@ import { screen, waitFor } from '@testing-library/react';
 import { expect } from 'vitest';
 import { validSteps } from '../../__fixtures__/steps';
 import '@testing-library/jest-dom';
+import getBtn from './utils/getBtn';
 
 class ChatBotPage {
   constructor() {
     this.user = userEvent.setup();
     this.steps = validSteps;
+    this.getBtn = getBtn;
     this.buttons = {
       openChatBtn: { name: this.steps[0].buttons[1].text },
       closeBtn: { name: 'Close' },
@@ -21,10 +23,6 @@ class ChatBotPage {
       tryAgainBtn: { name: this.steps[5].buttons[1].text },
       signToCourseBtn: { name: this.steps[4].buttons[0].text },
     };
-  }
-
-  async getBtn(selector) {
-    return screen.getByRole('button', selector);
   }
 
   async clickNextStep(step) {
