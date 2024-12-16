@@ -43,3 +43,13 @@ To run the tests, use the following command:
 ```bash
 npx vitest run
 ```
+
+### Test Files
+
+- **app.spec.jsx**: Tests for React components.
+- **chatBot.spec.jsx**: Tests for the chatbot logic.
+
+## Technologies
+
+- **Vitest** — The testing framework used to run the tests.
+- **React Testing Library** — The library used to test React components.
