@@ -24,14 +24,7 @@ class AppPage {
     };
   }
 
-  async fillForm({
-    email,
-    password,
-    address,
-    city,
-    country,
-    rulesCheckBox,
-  }) {
+  async fillForm({ email, password, address, city, country, rulesCheckBox }) {
     await this.user.type(this.emailInput, email);
     await this.user.type(this.passwordInput, password);
     await this.user.type(this.addressInput, address);
@@ -47,7 +40,10 @@ class AppPage {
 
     expect(this.emailInput).toHaveAttribute('placeholder', 'Email');
     expect(this.passwordInput).toHaveAttribute('placeholder', 'Пароль');
-    expect(this.addressInput).toHaveAttribute('placeholder', 'Невский проспект, 12');
+    expect(this.addressInput).toHaveAttribute(
+      'placeholder',
+      'Невский проспект, 12',
+    );
     expect(this.cityInput).not.toHaveAttribute('placeholder');
     expect(this.countryInput).toHaveValue('');
     expect(this.checkBox).not.toBeChecked();
