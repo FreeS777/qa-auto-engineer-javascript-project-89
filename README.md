@@ -31,9 +31,7 @@ cd qa-auto-engineer-javascript-project-89
 2. Install dependencies using npm or yarn:
 
 ```bash
-npm install
-# or
-yarn install
+npm ci
 ```
 
 ## Running Tests
@@ -41,7 +39,7 @@ yarn install
 To run the tests, use the following command:
 
 ```bash
-npx vitest run
+npm test
 ```
 
 ### Test Files
