@@ -52,18 +52,18 @@ class ChatBotPage {
 
   async checkConversationStartBtnVisible() {
     const button = await this.getBtn(
-      this.buttons.conversationStartBtn
+      this.buttons.conversationStartBtn,
     );
     expect(button).toBeVisible();
   }
 
   async checkStartBlockRendered() {
     expect(
-      await this.getBtn(this.buttons.changeProfessionBtn)
+      await this.getBtn(this.buttons.changeProfessionBtn),
     ).toBeVisible();
     expect(await this.getBtn(this.buttons.tryInITBtn)).toBeVisible();
     expect(
-      await this.getBtn(this.buttons.advancedInITBtn)
+      await this.getBtn(this.buttons.advancedInITBtn),
     ).toBeVisible();
     expect(screen.getByText(this.steps[1].messages[0])).toBeVisible();
   }
@@ -77,7 +77,7 @@ class ChatBotPage {
 
   async checkDetailsBlockRendered() {
     expect(
-      await this.getBtn(this.buttons.signToCourseBtn)
+      await this.getBtn(this.buttons.signToCourseBtn),
     ).toBeVisible();
     expect(await this.getBtn(this.buttons.backBtn)).toBeVisible();
     expect(screen.getByText(this.steps[4].messages[0])).toBeVisible();
@@ -85,7 +85,7 @@ class ChatBotPage {
 
   async checkSubscribeBlockRendered() {
     expect(
-      await this.getBtn(this.buttons.signToCourseBtn)
+      await this.getBtn(this.buttons.signToCourseBtn),
     ).toBeVisible();
     expect(await this.getBtn(this.buttons.tryAgainBtn)).toBeVisible();
     expect(screen.getByText(this.steps[6].messages[0])).toBeVisible();
