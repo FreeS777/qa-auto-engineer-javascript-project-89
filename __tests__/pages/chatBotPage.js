@@ -117,6 +117,14 @@ class ChatBotPage {
     expect(message).toBeVisible();
     expect(button).not.toBeInTheDocument();
   }
+
+  async verifyScrollIntoView() {
+    await waitFor(() => {
+      expect(
+        window.HTMLElement.prototype.scrollIntoView,
+      ).toHaveBeenCalled();
+    });
+  }
 }
 
 export default ChatBotPage;
