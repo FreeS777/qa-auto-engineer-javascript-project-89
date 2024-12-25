@@ -28,7 +28,7 @@ git clone git@github.com:FreeS777/qa-auto-engineer-javascript-project-89.git
 cd qa-auto-engineer-javascript-project-89
 ```
 
-2. Install dependencies using npm or yarn:
+2. Install dependencies using npm:
 
 ```bash
 npm ci
