@@ -10,6 +10,7 @@ class ChatBotPage {
     this.user = userEvent.setup();
     this.steps = validSteps;
     this.getBtn = getBtn;
+    this.scroll = window.HTMLElement.prototype.scrollIntoView;
     this.buttons = {
       openChatBtn: { name: this.steps[0].buttons[1].text },
       closeBtn: { name: 'Close' },
@@ -120,9 +121,7 @@ class ChatBotPage {
 
   async verifyScrollIntoView() {
     await waitFor(() => {
-      expect(
-        window.HTMLElement.prototype.scrollIntoView,
-      ).toHaveBeenCalled();
+      expect(this.scroll).toHaveBeenCalled();
     });
   }
 }
