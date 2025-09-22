@@ -1,24 +1,13 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vitest/config'
+import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
 export default defineConfig({
+  plugins: [react()],
   test: {
+    pool: 'vmThreads',
     environment: 'jsdom',
+    setupFiles: ['./vitest.setup.js'],
     css: true,
     globals: true,
-    pool: 'vmThreads',
-    setupFiles: ['./vitest.setup.js'],
-    server: {
-      deps: {
-        inline: [/@hexlet\/.*/],
-      },
-    },
-    deps: {
-      web: {
-        transformCss: true,
-      },
-    },
   },
-  plugins: [react()],
-});
+})
