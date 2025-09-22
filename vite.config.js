@@ -7,7 +7,8 @@ export default defineConfig({
     environment: 'jsdom',
     css: true,
     globals: true,
-    setupFiles: ['vitest.setup.js'],
+    pool: 'vmThreads',
+    setupFiles: ['./vitest.setup.js'],
     server: {
       deps: {
         inline: [/@hexlet\/.*/],
